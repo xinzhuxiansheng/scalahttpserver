@@ -1,0 +1,38 @@
+{
+  "name": "play-scala-react-seed",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "rimraf ../public && react-scripts build && ncp build ../public && rimraf build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "private": true,
+  "dependencies": {
+    "kleur": "^4.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "ncp": "^2.0.0",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.1.2"
+  },
+  "proxy": "http://localhost:9000",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "packageManager": "yarn@1.22.18"
+}
