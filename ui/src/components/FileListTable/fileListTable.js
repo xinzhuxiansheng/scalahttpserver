@@ -1,6 +1,5 @@
 import { DownloadOutlined,DeleteOutlined,InfoOutlined } from '@ant-design/icons';
-import { Button,Col, Row,Space, Table, Radio } from 'antd';
-import { useState } from 'react';
+import { Button,Col, Row,Space, Table } from 'antd';
 
 import './fileListTable.css'
 
@@ -9,7 +8,7 @@ const columns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>,
+    // render: (text) => <a>{text}</a>,
   },
   {
     title: 'Size',

@@ -10,9 +10,16 @@ function App(){
 
   return(
     <div className='appWrapper'>
+      {/*导航*/}
       <Nav></Nav>
+
+      {/*面包屑*/}
       <Breadc></Breadc>
+
+      {/*操作栏*/}
       <Barop></Barop>
+
+      {/*资源列表*/}
       <FileListTable></FileListTable>
     </div>
   )

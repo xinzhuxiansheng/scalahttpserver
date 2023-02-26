@@ -3,6 +3,9 @@
 Scala文件服务器
 
 
+## IDEA中调试 SBT项目
+
+
 [![MIT License][license-badge]][LICENSE]
 
 # Scala Play React Seed
