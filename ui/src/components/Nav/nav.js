@@ -1,0 +1,30 @@
+import { Col, Row,Input } from 'antd';
+import './nav.css'
+
+const { Search } = Input;
+
+const onSearch = (value) => console.log(value);
+function Nav(){
+  return (
+    <div className='navWrapper'>
+      {/*<div className='navMiddleWrapper'>*/}
+      {/*  <div>Scala HTTP File Server</div>*/}
+      {/*  <div>搜索框</div>*/}
+      {/*</div>*/}
+
+      <Row>
+        <Col span={4}></Col>
+        <Col span={16} className='navMiddleWrapper'>
+            <div className='navWebHeaderDesc'>Scala HTTP File Server</div>
+            <div className='navWebHeaderSearch'>
+              <Search className='navSearchBtn' placeholder="Search text" onSearch={onSearch} enterButton />
+            </div>
+        </Col>
+        <Col span={4}></Col>
+      </Row>
+
+    </div>
+  )
+}
+
+export default Nav;

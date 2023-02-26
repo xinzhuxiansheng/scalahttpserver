@@ -1,0 +1,35 @@
+.navWrapper {
+  height: 50px;
+  background-color: #101010;
+  color: #9d9d9d;
+  margin-bottom: 20px;
+}
+
+.navMiddleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navWebHeaderDesc {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.navWebHeaderSearch {
+  display: flex;
+  align-items: center;
+}
+
+.navSearchBtn .ant-input-search-button {
+  background-color: #ffffff !important;
+  border-left: 1rem red !important;
+  color: #383838;
+}
+
+.navSearchBtn .ant-input-group-addon :hover{
+  background-color: #e6e6e6 !important;
+  color: #333333;
+}
