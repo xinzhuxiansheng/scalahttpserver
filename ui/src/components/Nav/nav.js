@@ -20,11 +20,6 @@ function Nav() {
 
   return (
     <div className='navWrapper'>
-      {/*<div className='navMiddleWrapper'>*/}
-      {/*  <div>Scala HTTP File Server</div>*/}
-      {/*  <div>搜索框</div>*/}
-      {/*</div>*/}
-
       <Row>
         <Col span={4}></Col>
         <Col span={16} className='navMiddleWrapper'>
