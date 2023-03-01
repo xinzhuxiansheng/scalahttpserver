@@ -6,23 +6,29 @@ import FileListTable from "./components/FileListTable/fileListTable";
 
 import './App.css'
 
-function App(){
+class App extends React.Component {
 
-  return(
-    <div className='appWrapper'>
-      {/*导航*/}
-      <Nav></Nav>
+  handleEventFromNav = ()=>{
 
-      {/*面包屑*/}
-      <Breadc></Breadc>
+  }
 
-      {/*操作栏*/}
-      <Barop></Barop>
+  render() {
+    return (
+      <div className='appWrapper'>
+        {/*导航*/}
+        <Nav onEvent={}></Nav>
 
-      {/*资源列表*/}
-      <FileListTable></FileListTable>
-    </div>
-  )
+        {/*面包屑*/}
+        <Breadc></Breadc>
+
+        {/*操作栏*/}
+        <Barop></Barop>
+
+        {/*资源列表*/}
+        <FileListTable></FileListTable>
+      </div>
+    )
+  }
 }
 
 export default App;
