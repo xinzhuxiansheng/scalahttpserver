@@ -23,9 +23,8 @@ function Nav(props) {
 
     // 同步keyword
     props.search(value)
-
-    // 通知父组件触发其他子组件
-    props.handleOnSearch(value)
+    // 通知父组件 给子组件标记的属性对象
+    props.attributeOnSearchCall(value)
   }
 
   return (

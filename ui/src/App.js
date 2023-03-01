@@ -13,15 +13,21 @@ class App extends React.Component {
     this.fileListTableRef = React.createRef();
   }
 
-  onSearch = (keyword) => {
-    this.fileListTableRef.current.handleOnSearch(keyword)
+  handleSearchFileCall = (keyword) => {
+    this.fileListTableRef.current.updateFileList(keyword)
+  }
+
+  componentDidMount() {
+    const fileListTable = this.fileListTableRef.current;
+    // 调用其 updateData 方法
+    fileListTable.updateFileList();
   }
 
   render() {
     return (
       <div className='appWrapper'>
         {/*导航*/}
-        <Nav onEvent={this.onSearch}></Nav>
+        <Nav attributeOnSearchCall={this.handleSearchFileCall}></Nav>
 
         {/*面包屑*/}
         <Breadc></Breadc>
@@ -30,7 +36,7 @@ class App extends React.Component {
         <Barop></Barop>
 
         {/*资源列表*/}
-        <FileListTable re={this.fileListTableRef}></FileListTable>
+        <FileListTable ref={this.fileListTableRef}></FileListTable>
       </div>
     )
   }

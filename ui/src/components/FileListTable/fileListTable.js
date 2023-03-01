@@ -1,7 +1,8 @@
-import { DownloadOutlined,DeleteOutlined,InfoOutlined } from '@ant-design/icons';
-import { Button,Col, Row,Space, Table } from 'antd';
-
+import {DownloadOutlined, DeleteOutlined, InfoOutlined} from '@ant-design/icons';
+import {Button, Col, Row, Space, Table} from 'antd';
+import {fileListAPI} from "../../service/api";
 import './fileListTable.css'
+import React from "react";
 
 const columns = [
   {
@@ -28,56 +29,49 @@ const columns = [
     width: 225,
     render: (_, record) => (
       <Space size="middle">
-        <Button type="primary" icon={<DownloadOutlined /> } size='small'>
+        <Button type="primary" icon={<DownloadOutlined/>} size='small'>
           Download
         </Button>
-        <Button type="primary" icon={<InfoOutlined />} size='small'/>
-        <Button danger icon={<DeleteOutlined />} size='small'/>
+        <Button type="primary" icon={<InfoOutlined/>} size='small'/>
+        <Button danger icon={<DeleteOutlined/>} size='small'/>
       </Space>
     ),
   },
 ];
-// const data = [
-//   {
-//     key: '1',
-//     name: 'John Brown',
-//     size: '32 MB',
-//     modTime: '2023-02-17 00:00:00',
-//   },
-//   {
-//     key: '2',
-//     name: 'Jim Green',
-//     size: '2.1 GB',
-//     modTime: '2023-02-17 00:00:00',
-//   },
-//   {
-//     key: '3',
-//     name: 'Joe Black',
-//     size: '32 MB',
-//     modTime: '2023-02-17 00:00:00',
-//   },
-// ];
 
-function FileListTable() {
-
-  const handleOnSearch = (keyword) => {
-    console.log(keyword)
+class FileListTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
   }
 
-  return (
-    <div className='fileListTableWrapper'>
-      <Row>
-        <Col span={4}></Col>
-        <Col span={16} className='fileListTableMiddleWrapper'>
+  // keyword值从 redux获取
+  updateFileList = (path, keyword) => {
+    fileListAPI(path, keyword).then(data => {
+      this.setState({data: data.data});
+    })
+  }
 
-          <Table pagination={false} columns={columns}  dataSource={data} size="middle"/>
+  render() {
+    return (
+      <div className='fileListTableWrapper'>
+        <Row>
+          <Col span={4}></Col>
+          <Col span={16} className='fileListTableMiddleWrapper'>
 
-        </Col>
-        <Col span={4}></Col>
-      </Row>
+            <Table pagination={false} columns={columns} dataSource={this.state.data}
+                   rowKey={"name"}
+                   size="middle"/>
 
-    </div>
-  )
+          </Col>
+          <Col span={4}></Col>
+        </Row>
+
+      </div>
+    )
+  }
 }
 
 export default FileListTable;
