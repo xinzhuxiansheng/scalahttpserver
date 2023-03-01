@@ -37,28 +37,32 @@ const columns = [
     ),
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    size: '32 MB',
-    modTime: '2023-02-17 00:00:00',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    size: '2.1 GB',
-    modTime: '2023-02-17 00:00:00',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    size: '32 MB',
-    modTime: '2023-02-17 00:00:00',
-  },
-];
+// const data = [
+//   {
+//     key: '1',
+//     name: 'John Brown',
+//     size: '32 MB',
+//     modTime: '2023-02-17 00:00:00',
+//   },
+//   {
+//     key: '2',
+//     name: 'Jim Green',
+//     size: '2.1 GB',
+//     modTime: '2023-02-17 00:00:00',
+//   },
+//   {
+//     key: '3',
+//     name: 'Joe Black',
+//     size: '32 MB',
+//     modTime: '2023-02-17 00:00:00',
+//   },
+// ];
 
 function FileListTable() {
+
+  const handleOnSearch = (keyword) => {
+    console.log(keyword)
+  }
 
   return (
     <div className='fileListTableWrapper'>

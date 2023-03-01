@@ -25,7 +25,7 @@ function Nav(props) {
     props.search(value)
 
     // 通知父组件触发其他子组件
-
+    props.handleOnSearch(value)
   }
 
   return (

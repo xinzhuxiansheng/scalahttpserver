@@ -8,15 +8,20 @@ import './App.css'
 
 class App extends React.Component {
 
-  handleEventFromNav = ()=>{
+  constructor(props) {
+    super(props);
+    this.fileListTableRef = React.createRef();
+  }
 
+  onSearch = (keyword) => {
+    this.fileListTableRef.current.handleOnSearch(keyword)
   }
 
   render() {
     return (
       <div className='appWrapper'>
         {/*导航*/}
-        <Nav onEvent={}></Nav>
+        <Nav onEvent={this.onSearch}></Nav>
 
         {/*面包屑*/}
         <Breadc></Breadc>
@@ -25,7 +30,7 @@ class App extends React.Component {
         <Barop></Barop>
 
         {/*资源列表*/}
-        <FileListTable></FileListTable>
+        <FileListTable re={this.fileListTableRef}></FileListTable>
       </div>
     )
   }
