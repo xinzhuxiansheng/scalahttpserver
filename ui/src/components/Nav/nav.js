@@ -11,16 +11,6 @@ function Nav(props) {
   // const [keyword, setkeyword] = useState('');
 
   const onSearch = (value) => {
-    // console.log(value);
-    // axios.get(`http://localhost:3000/playServer/api/pageIndex`).then(
-    //   response => {
-    //     console.log('成功了', response.data)
-    //   },
-    //   error => {
-    //     console.log('失败了', error)
-    //   }
-    // )
-
     // 同步keyword
     props.search(value)
     // 通知父组件 给子组件标记的属性对象

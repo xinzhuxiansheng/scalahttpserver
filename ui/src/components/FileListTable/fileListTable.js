@@ -3,6 +3,8 @@ import {Button, Col, Row, Space, Table} from 'antd';
 import {fileListAPI} from "../../service/api";
 import './fileListTable.css'
 import React from "react";
+import {connect} from "react-redux";
+import {createFileListTableAction} from "../../redux/actions/fileListTable";
 
 const columns = [
   {
@@ -43,7 +45,8 @@ class FileListTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      currentPath: '',
     };
   }
 
@@ -64,7 +67,6 @@ class FileListTable extends React.Component {
             <Table pagination={false} columns={columns} dataSource={this.state.data}
                    rowKey={"name"}
                    size="middle"/>
-
           </Col>
           <Col span={4}></Col>
         </Row>
@@ -74,4 +76,10 @@ class FileListTable extends React.Component {
   }
 }
 
-export default FileListTable;
+// export default FileListTable;
+export default connect(
+  state => ({currentPath: state.fileListTableReducer.currentPath}),
+  {search: createFileListTableAction},
+  null,
+  { forwardRef: true },
+)(FileListTable)
