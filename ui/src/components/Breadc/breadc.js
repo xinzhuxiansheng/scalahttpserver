@@ -14,7 +14,6 @@ function Breadc() {
 
   // 监听数据变化
   useEffect(() => {
-
     // 检查数据是否已更改并触发相应的方法
     console.log('数据已更改', memoizedData);
     // 将data字符串按照 / 分割成数组
@@ -23,7 +22,6 @@ function Breadc() {
     arr.splice(-1, 1);
     // 处理边界，如果数组为空或只有一个元素，则返回空数组
     setBreads(arr);
-
   }, [memoizedData]);
 
   return (

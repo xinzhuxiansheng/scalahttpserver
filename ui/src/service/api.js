@@ -3,7 +3,9 @@ import axios from "axios";
 const API_DOMAIN = "http://localhost:3000/playServer";
 
 export const fileListAPI = (path, keyword) => {
-  return axios.get(`${API_DOMAIN}/api/pageIndex`).then(
+  let url = `${API_DOMAIN}/api/pageIndex?path=${path}&keyword=${keyword}`
+  console.log("fileListAPI: " + url)
+  return axios.get(url).then(
     response => {
       console.log('成功了', response.data)
       return response.data

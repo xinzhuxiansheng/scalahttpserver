@@ -7,12 +7,13 @@ import './nav.css'
 
 const {Search} = Input;
 
-function Nav(props) {
+const Nav = (props) => {
   // const [keyword, setkeyword] = useState('');
 
   const onSearch = (value) => {
+    // console.log(currentPath)
     // 同步keyword
-    props.search(value)
+    props.updateKeyword(value)
     // 通知父组件 给子组件标记的属性对象
     props.attributeOnSearchCall(value)
   }
@@ -32,10 +33,20 @@ function Nav(props) {
 
     </div>
   )
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    keyword: state.navReducer.keyword,
+    currentPath: state.fileListTableReducer.currentPath
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateKeyword: (newKeyword) => dispatch(createNavSearchAction(newKeyword))
+  };
+};
 
 // export default Nav;
-export default connect(
-  state => ({keyword: state.navReducer.keyword}),
-  {search: createNavSearchAction}
-)(Nav)
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

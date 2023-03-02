@@ -27,8 +27,8 @@ class HomeController @Inject()(fileService: FileService)(cc: ControllerComponent
     Ok(Json.obj("content" -> "Scala Play React Seed!"))
   }
 
-  def pathIndex(path: String) = Action {
-    var (status, data) = fileService.queryFilesOrFolers(path)
+  def pathIndex(path: String,keyword:String) = Action {
+    var (status, data) = fileService.queryFilesOrFolers(path,keyword)
     if (status) {
       Ok(JsonResult.success(data.asInstanceOf[Array[FileData]]))
     } else {

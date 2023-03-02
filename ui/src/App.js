@@ -11,19 +11,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keyword: ''
+
     }
     this.fileListTableRef = React.createRef();
   }
 
   handleSearchFileCall = () => {
-    this.fileListTableRef.current.updateFileList(this.state.keyword)
+    this.fileListTableRef.current.updateFileList()
   }
 
   componentDidMount() {
     const fileListTable = this.fileListTableRef.current;
     // 调用其 updateData 方法
-    this.fileListTableRef.current.updateFileList(this.state.keyword)
+    this.fileListTableRef.current.updateFileList()
   }
 
   render() {

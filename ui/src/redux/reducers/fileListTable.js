@@ -7,8 +7,9 @@ export default function fileListTableReducer(preState = initState, action) {
   switch (type) {
     case UPDATE_CURRENTPATH:
       // return {keyword:data}  // TODO 重点
-      preState.currentPath = data
-      return preState
+      return {currentPath: data}
+      // preState.currentPath = data
+      // return preState
     default:
       return preState;
   }

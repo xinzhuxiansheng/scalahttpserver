@@ -2,8 +2,8 @@ import {DownloadOutlined, DeleteOutlined, InfoOutlined} from '@ant-design/icons'
 import {Button, Col, Row, Space, Table} from 'antd';
 import {fileListAPI} from "../../service/api";
 import './fileListTable.css'
-import React from "react";
-import {connect} from "react-redux";
+import React, {useState} from "react";
+import {connect, useSelector} from "react-redux";
 import {createFileListTableAction} from "../../redux/actions/fileListTable";
 
 const columns = [
@@ -45,20 +45,32 @@ class FileListTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      currentPath: '',
+      data: []
     };
   }
 
+// const FileListTable = React.forwardRef((props, ref) => {
+//   // get the state from the redux store
+//   const { keyword, currentPath, error } = props;
+//   const [data, setData] = useState([]);
+//   // keyword值从 redux获取
+//   const updateFileList = () => {
+//     fileListAPI(this.props.currentPath, this.props.keyword).then(data => {
+//       this.setState({data: data.data});
+//     })
+//   }
+
   // keyword值从 redux获取
-  updateFileList = (path, keyword) => {
-    fileListAPI(path, keyword).then(data => {
+  updateFileList = () => {
+    fileListAPI(this.props.currentPath, this.props.keyword).then(data => {
       this.setState({data: data.data});
     })
   }
 
+
   render() {
     return (
+
       <div className='fileListTableWrapper'>
         <Row>
           <Col span={4}></Col>
@@ -70,16 +82,29 @@ class FileListTable extends React.Component {
           </Col>
           <Col span={4}></Col>
         </Row>
-
+        <h2>keyword： {this.props.keyword}</h2>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    keyword: state.navReducer.keyword,
+    currentPath: state.fileListTableReducer.currentPath
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateCurrentPath: (currentPath) => dispatch(createFileListTableAction(currentPath))
+  };
+};
+
 // export default FileListTable;
 export default connect(
-  state => ({currentPath: state.fileListTableReducer.currentPath}),
-  {search: createFileListTableAction},
+  mapStateToProps,
+  mapDispatchToProps,
   null,
-  { forwardRef: true },
+  {forwardRef: true},
 )(FileListTable)
