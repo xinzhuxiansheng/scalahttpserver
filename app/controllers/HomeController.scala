@@ -19,7 +19,9 @@ class HomeController @Inject()(fileService: FileService)(cc: ControllerComponent
       (JsPath \ "size").write[Long] and
       (JsPath \ "sizeDesc").write[String] and
       (JsPath \ "internalPath").write[String] and
-      (JsPath \ "modificationTime").write[Long]
+      (JsPath \ "isHidden").write[Boolean] and
+      (JsPath \ "modificationTime").write[Long] and
+      (JsPath \ "modificationTimeDesc").write[String]
     ) (unlift(FileData.unapply))
 
 
@@ -27,8 +29,8 @@ class HomeController @Inject()(fileService: FileService)(cc: ControllerComponent
     Ok(Json.obj("content" -> "Scala Play React Seed!"))
   }
 
-  def pathIndex(path: String,keyword:String) = Action {
-    var (status, data) = fileService.queryFilesOrFolers(path,keyword)
+  def pathIndex(path: String, keyword: String) = Action {
+    var (status, data) = fileService.queryFilesOrFolers(path, keyword)
     if (status) {
       Ok(JsonResult.success(data.asInstanceOf[Array[FileData]]))
     } else {

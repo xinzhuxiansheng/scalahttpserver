@@ -21,8 +21,8 @@ const columns = [
   },
   {
     title: 'ModTime',
-    dataIndex: 'modTime',
-    key: 'modTime',
+    dataIndex: 'modificationTimeDesc',
+    key: 'modificationTimeDesc',
     width: 190,
   },
   {
@@ -61,8 +61,8 @@ class FileListTable extends React.Component {
 //   }
 
   // keyword值从 redux获取
-  updateFileList = () => {
-    fileListAPI(this.props.currentPath, this.props.keyword).then(data => {
+  updateFileList = (keyword) => {
+    fileListAPI(this.props.currentPath, keyword).then(data => {
       this.setState({data: data.data});
     })
   }

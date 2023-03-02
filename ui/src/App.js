@@ -11,19 +11,19 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     }
     this.fileListTableRef = React.createRef();
   }
 
-  handleSearchFileCall = () => {
-    this.fileListTableRef.current.updateFileList()
+  handleSearchFileCall = (keyword) => {
+    this.fileListTableRef.current.updateFileList(keyword)
   }
 
+  // 初始化
   componentDidMount() {
     const fileListTable = this.fileListTableRef.current;
     // 调用其 updateData 方法
-    this.fileListTableRef.current.updateFileList()
+    this.fileListTableRef.current.updateFileList('')
   }
 
   render() {
@@ -39,7 +39,7 @@ class App extends React.Component {
         <Barop></Barop>
 
         {/*资源列表*/}
-        <FileListTable ref={this.fileListTableRef}></FileListTable>
+        <FileListTable ref={this.fileListTableRef} ></FileListTable>
       </div>
     )
   }
