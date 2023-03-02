@@ -2,12 +2,10 @@ package services
 
 import common.util.StringUtils
 import model.FileData
+import org.joda.time.DateTime
 import org.slf4j.LoggerFactory
 
 import java.io.File
-import java.time.Instant
-import java.time.format.DateTimeFormatter
-import scala.collection.mutable.ListBuffer
 
 class FileService {
   val logger = LoggerFactory.getLogger(classOf[FileService])
@@ -43,9 +41,8 @@ class FileService {
   /**
    * long类型时间转 字符串
    */
-  def longTime2String(timestamp:Long): String ={
-    val instant = Instant.ofEpochMilli(timestamp)
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    formatter.format(instant)
+  def longTime2String(timestamp: Long): String = {
+    val time: DateTime = new DateTime(timestamp)
+    return time.toString("yyyy-MM-dd HH:mm:ss")
   }
 }
