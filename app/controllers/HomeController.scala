@@ -8,6 +8,8 @@ import play.api.libs.json.{JsObject, JsPath, JsValue, Json, Writes}
 import play.api.mvc._
 import services.FileService
 
+import java.util.Date
+
 @Singleton
 class HomeController @Inject()(fileService: FileService)(cc: ControllerComponents)
   extends AbstractController(cc) {
@@ -38,4 +40,28 @@ class HomeController @Inject()(fileService: FileService)(cc: ControllerComponent
       Ok(JsonResult.error(500, data.toString))
     }
   }
+
+  def createFolder() = Action { implicit request: Request[AnyContent] =>
+//    var (status, data) = fileService.queryFilesOrFolers(path, keyword)
+//    if (status) {
+//      Ok(JsonResult.success(data.asInstanceOf[Array[FileData]]))
+//    } else {
+//      Ok(JsonResult.error(500, data.toString))
+//    }
+
+    (for {
+      js <- request.body.asJson
+      currentPath <- (js \ "currentPath").asOpt[String]
+      newFolderName <- (js \ "newFolderName").asOpt[String]
+    } yield {
+      if (secret.trim == "yzhouAdmin") {
+        articleService.add(Article(-1, title, content, contentHtml, 1, "", drafts, tags, new Date(), new Date()))
+        Ok(Json.obj("code" -> "200"))
+      } else {
+        Ok(Json.obj("code" -> "200"))
+      }
+    }).getOrElse(Ok(Json.obj("code" -> "1", "msg" -> "无效参数")))
+
+  }
+
 }

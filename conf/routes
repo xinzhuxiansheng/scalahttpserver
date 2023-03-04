@@ -8,6 +8,7 @@ GET        /                     controllers.FrontendController.index()
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
 GET        /api/summary          controllers.HomeController.appSummary
 GET        /api/pageIndex        controllers.HomeController.pathIndex(path:String?="",keyword:String?="")
+POST       /api/createFolder     controllers.HomeController.createFolder()
 
 
 # Serve static assets under public directory

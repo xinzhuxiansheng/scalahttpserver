@@ -39,6 +39,27 @@ class FileService {
     }
   }
 
+  def createFolder(currentPath: String, newFolderName: String): (Boolean, String) = {
+    try {
+      logger.info(s"createFolder currentPath:${currentPath}, newFolderName:${newFolderName}")
+      var directory = currentPath
+      if (StringUtils.isNullOrBlank(directory) || directory == "/")
+        directory = "/Users/yiche/Desktop/Tmp";
+      else
+        directory = "/Users/yiche/Desktop/Tmp" + directory
+
+      val dir = new File(directory);
+      if (!dir.exists()) {
+        dir.mkdir()
+        (true, "目录创建成功!")
+      } else {
+        (false, "目录已存在")
+      }
+    } catch {
+      case exception: Exception => (false, "查询接口异常")
+    }
+  }
+
   /**
    * long类型时间转 字符串
    */

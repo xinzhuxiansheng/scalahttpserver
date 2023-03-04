@@ -10,6 +10,8 @@ import {useState} from 'react';
 import PubSub from 'pubsub-js'
 
 import './barop.css'
+import {createNavSearchAction} from "../../redux/actions/nav";
+import {connect, useSelector} from "react-redux";
 
 
 const {Dragger} = Upload;
@@ -38,6 +40,8 @@ function Barop() {
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+
+  const currentPath = useSelector(state => state.fileListTableReducer.currentPath);
 
   // New Folder
   const showNewFolderModal = () => {
@@ -84,7 +88,7 @@ function Barop() {
 
       <Modal title="New Folder" open={isNewFolderModalOpen} onOk={handleNewFolderOk} onCancel={handleNewFolderCancel}>
         <div className='newFolderWrapper'>
-          <p className='newFolderDesc'>current path: /yzhou</p>
+          <p className='newFolderDesc'>current path: {currentPath}</p>
           <p className='newFolderDesc'>please enter the new directory name</p>
           <Input placeholder="folder name"/>
         </div>
@@ -110,3 +114,18 @@ function Barop() {
 }
 
 export default Barop;
+
+// const mapStateToProps = (state) => {
+//   return {
+//     currentPath: state.fileListTableReducer.currentPath
+//   };
+// };
+//
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     updateKeyword: (newKeyword) => dispatch(createNavSearchAction(newKeyword))
+//   };
+// };
+//
+// // export default Nav;
+// export default connect(mapStateToProps, mapDispatchToProps)(Nav)
