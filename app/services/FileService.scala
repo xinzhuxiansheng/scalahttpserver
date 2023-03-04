@@ -19,19 +19,20 @@ class FileService {
 
       val dir = new File(directory);
       val filterList = if (StringUtils.isNullOrBlank(keyword)) dir.listFiles() else
-        dir.listFiles(f => f.getName == keyword)
+        dir.listFiles(f => f.getName.contains(keyword))
       // f.getPath 是绝对路径
       var items = filterList
-        .map(f => FileData(
-          f.getName,
-          "txt",
-          f.length(),
-          "文件",
-          f.getAbsolutePath,
-          f.isHidden,
-          f.lastModified(),
-          longTime2String(f.lastModified()))
-        )
+        .map(f => {
+          FileData(
+            f.getName,
+            getFileType(f),
+            f.length(),
+            "",
+            f.getAbsolutePath,
+            f.isHidden,
+            f.lastModified(),
+            longTime2String(f.lastModified()))
+        })
       (true, items)
     } catch {
       case exception: Exception => (false, "查询接口异常")
@@ -44,5 +45,31 @@ class FileService {
   def longTime2String(timestamp: Long): String = {
     val time: DateTime = new DateTime(timestamp)
     return time.toString("yyyy-MM-dd HH:mm:ss")
+  }
+
+  def getFileType(file: File): String = {
+    if (file.isDirectory) {
+      return "folder"
+    }
+    val fileName = file.getName
+    val dotIndex = fileName.lastIndexOf(".")
+    if (dotIndex > 0) {
+      val extension = fileName.substring(dotIndex + 1)
+      extension match {
+        case "jpg" => "image" //<FileImageOutlined />
+        case "png" => "image" //
+        case "pdf" => "pdf" //<FilePdfOutlined />
+        case "doc" => "word" //<FileWordOutlined />
+        case "xls" => "excel" //<FileExcelOutlined />
+        case "xlsx" => "excel" //<FileExcelOutlined />
+        case "ppt" => "ppt" //<FilePptOutlined />
+        case "md" => "md" //<FileMarkdownOutlined />
+        case "zip" => "yasuobao" //<FileZipOutlined />
+        case "tgz" => "yasuobao" //<FileZipOutlined />
+        case _ => "txt" //<FileTextOutlined />
+      }
+    } else {
+      "txt" //<FileTextOutlined />
+    }
   }
 }

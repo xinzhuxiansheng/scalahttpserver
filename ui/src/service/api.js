@@ -2,8 +2,8 @@ import axios from "axios";
 
 const API_DOMAIN = "http://localhost:3000/playServer";
 
-export const fileListAPI = (path, keyword) => {
-  let url = `${API_DOMAIN}/api/pageIndex?path=${path}&keyword=${keyword}`
+export const fileListAPI = (path, keyword,isHidden) => {
+  let url = `${API_DOMAIN}/api/pageIndex?path=${path}&keyword=${keyword}&isHidden=${isHidden}`
   console.log("fileListAPI: " + url)
   return axios.get(url).then(
     response => {

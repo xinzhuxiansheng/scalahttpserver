@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import {Button, Col, Row, Modal, Input, message, Upload} from 'antd';
 import {useState} from 'react';
+import PubSub from 'pubsub-js'
 
 import './barop.css'
 
@@ -36,6 +37,7 @@ const props = {
 function Barop() {
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   // New Folder
   const showNewFolderModal = () => {
@@ -59,6 +61,11 @@ function Barop() {
     setIsUploadModalOpen(false);
   };
 
+  const handlerIsHidden = () => {
+    let isHiddenTmp = isHidden
+    setIsHidden(!isHiddenTmp, PubSub.publish('isHidden', !isHiddenTmp))
+  }
+
   return (
     <div className='baropWrapper'>
       <Row>
@@ -66,7 +73,7 @@ function Barop() {
         <Col span={16} className='baropMiddleWrapper'>
 
           <Button icon={<ArrowLeftOutlined/>}>Back</Button>
-          <Button icon={<EyeInvisibleOutlined/>}>Hidden</Button>
+          <Button icon={<EyeInvisibleOutlined/>} onClick={handlerIsHidden}>Hidden</Button>
           <Button icon={<CloudUploadOutlined/>} onClick={showUploadModal}>Upload</Button>
           <Button icon={<FolderAddOutlined/>} onClick={showNewFolderModal}>New Folder</Button>
 

@@ -2,20 +2,22 @@ import {Col, Row, Input} from 'antd';
 // import {useState} from "react";
 import {connect} from 'react-redux'
 import {createNavSearchAction} from "../../redux/actions/nav";
+import PubSub from 'pubsub-js'
 
 import './nav.css'
 
 const {Search} = Input;
 
 const Nav = (props) => {
-  // const [keyword, setkeyword] = useState('');
-
   const onSearch = (value) => {
-    // console.log(currentPath)
-    // 同步keyword
-    props.updateKeyword(value)
-    // 通知父组件 给子组件标记的属性对象
-    props.attributeOnSearchCall(value)
+    PubSub.publish('search',value)
+
+    // // console.log(currentPath)
+    // // 同步keyword
+    // props.updateKeyword(value)
+    // // 通知父组件 给子组件标记的属性对象
+    // props.attributeOnSearchCall(value)
+
   }
 
   return (

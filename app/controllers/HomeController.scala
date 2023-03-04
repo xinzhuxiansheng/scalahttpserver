@@ -15,13 +15,14 @@ class HomeController @Inject()(fileService: FileService)(cc: ControllerComponent
   //定义一个writes
   implicit val fileDataWrites: Writes[FileData] = (
     (JsPath \ "name").write[String] and
-      (JsPath \ "type").write[String] and
-      (JsPath \ "size").write[Long] and
-      (JsPath \ "sizeDesc").write[String] and
+      (JsPath \ "fType").write[String] and
+      (JsPath \ "fSize").write[Long] and
+      (JsPath \ "fSizeDesc").write[String] and
       (JsPath \ "internalPath").write[String] and
       (JsPath \ "isHidden").write[Boolean] and
       (JsPath \ "modificationTime").write[Long] and
       (JsPath \ "modificationTimeDesc").write[String]
+//      (JsPath \ "fIcon").write[String]
     ) (unlift(FileData.unapply))
 
 

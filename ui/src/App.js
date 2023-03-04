@@ -3,6 +3,7 @@ import Nav from './components/Nav/nav';
 import Breadc from "./components/Breadc/breadc";
 import Barop from "./components/BarOp/barop";
 import FileListTable from "./components/FileListTable/fileListTable";
+import PubSub from "pubsub-js";
 
 import './App.css'
 
@@ -12,18 +13,18 @@ class App extends React.Component {
     super(props);
     this.state = {
     }
-    this.fileListTableRef = React.createRef();
   }
 
   handleSearchFileCall = (keyword) => {
-    this.fileListTableRef.current.updateFileList(keyword)
+
+    //
+
+    this.fileListTableRef.current.updateFileList()
   }
 
   // 初始化
   componentDidMount() {
-    const fileListTable = this.fileListTableRef.current;
-    // 调用其 updateData 方法
-    this.fileListTableRef.current.updateFileList('')
+    PubSub.publish('first',{})
   }
 
   render() {
@@ -39,7 +40,7 @@ class App extends React.Component {
         <Barop></Barop>
 
         {/*资源列表*/}
-        <FileListTable ref={this.fileListTableRef} ></FileListTable>
+        <FileListTable></FileListTable>
       </div>
     )
   }
