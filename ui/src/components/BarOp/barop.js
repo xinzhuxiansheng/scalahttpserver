@@ -14,32 +14,13 @@ import {createNavSearchAction} from "../../redux/actions/nav";
 import {connect, useSelector} from "react-redux";
 
 
-const {Dragger} = Upload;
-const props = {
-  name: 'file',
-  multiple: true,
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  onChange(info) {
-    const {status} = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
-
-
 function Barop() {
   const [isNewFolderModalOpen, setIsNewFolderModalOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+
+  const [uploadData, setUploadData] = useState({});
 
   const currentPath = useSelector(state => state.fileListTableReducer.currentPath);
 
@@ -48,11 +29,15 @@ function Barop() {
     setIsNewFolderModalOpen(true);
   };
   const handleNewFolderOk = () => {
+    PubSub.publish('addNewFolder', newFolderName)
     setIsNewFolderModalOpen(false);
   };
   const handleNewFolderCancel = () => {
     setIsNewFolderModalOpen(false);
   };
+  const handleNewFolderNameChange = (e) => {
+    setNewFolderName(e.target.value)
+  }
 
   // Upload
   const showUploadModal = () => {
@@ -69,6 +54,43 @@ function Barop() {
     let isHiddenTmp = isHidden
     setIsHidden(!isHiddenTmp, PubSub.publish('isHidden', !isHiddenTmp))
   }
+
+  const handleBeforeUpload = file => {
+    const isLt10G = file.size / 1024 / 1024 < (1024 * 1024 * 10);
+    if (!isLt10G) {
+      message.error('Image must smaller than 10GB!');
+      return false;
+    }
+    setUploadData({
+      currentPath
+    })
+    return true;
+  };
+
+  const {Dragger} = Upload;
+  const uploadProps = {
+    name: 'file',
+    data: uploadData,
+    multiple: false,
+    beforeUpload: handleBeforeUpload,
+    action: 'http://localhost:3000/playServer/api/upload',
+    onChange(info) {
+      const {status} = info.file;
+      if (status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (status === 'done') {
+        setIsUploadModalOpen(false);
+        message.success(`${info.file.name} file uploaded successfully.`);
+        PubSub.publish('search', {})
+      } else if (status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    onDrop(e) {
+      console.log('Dropped files', e.dataTransfer.files);
+    },
+  };
 
   return (
     <div className='baropWrapper'>
@@ -90,13 +112,13 @@ function Barop() {
         <div className='newFolderWrapper'>
           <p className='newFolderDesc'>current path: {currentPath}</p>
           <p className='newFolderDesc'>please enter the new directory name</p>
-          <Input placeholder="folder name"/>
+          <Input placeholder="folder name" value={newFolderName} onChange={handleNewFolderNameChange}/>
         </div>
       </Modal>
 
       <Modal title="Upload" open={isUploadModalOpen} onOk={handleUploadOk} onCancel={handleUploadCancel}>
         <div className='uploadWrapper'>
-          <Dragger {...props}>
+          <Dragger {...uploadProps}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined/>
             </p>

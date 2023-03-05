@@ -12,6 +12,7 @@
   "dependencies": {
     "antd": "^5.2.2",
     "axios": "^1.3.4",
+    "file-saver": "^2.0.5",
     "kleur": "^4.1.5",
     "pubsub-js": "^1.9.4",
     "react": "^18.2.0",

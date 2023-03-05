@@ -3,15 +3,18 @@
 # ~~~~
 
 # Serve index page from public directory
-GET        /                     controllers.FrontendController.index()
+GET         /                            controllers.FrontendController.index()
 
 # An example route (Prefix all API routes with apiPrefix defined in application.conf)
-GET        /api/summary          controllers.HomeController.appSummary
-GET        /api/pageIndex        controllers.HomeController.pathIndex(path:String?="",keyword:String?="")
-POST       /api/createFolder     controllers.HomeController.createFolder()
+GET         /api/summary                 controllers.HomeController.appSummary
+GET         /api/pageIndex               controllers.HomeController.pathIndex(path:String?="",keyword:String?="",isHidden:Boolean?=false)
+POST        /api/createFolder            controllers.HomeController.createFolder()
+POST        /api/upload                  controllers.HomeController.upload()
+POST        /api/deleteResource          controllers.HomeController.deleteResource()
+GET         /api/downloadResource        controllers.HomeController.downloadResource(currentPath: String, resourceName: String)
 
 
 # Serve static assets under public directory
-GET        /*file                controllers.FrontendController.assetOrDefault(file)
+GET         /*file                       controllers.FrontendController.assetOrDefault(file)
 
 
