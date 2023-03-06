@@ -21,19 +21,23 @@ class FileService {
       var directory = path
       if (StringUtils.isNullOrBlank(directory) || directory == "/")
         directory = rootPath;
+      else
+        directory = s"$rootPath$path"
 
       val dir = new File(directory);
 
-      val filterList = if (StringUtils.isNullOrBlank(keyword)) dir.listFiles() else
-        dir.listFiles(f => {
-          var iskeywordF = true
-          var ishiddenF = true
-          if (StringUtils.isNullOrBlank(keyword) && !f.getName.contains(keyword))
-            iskeywordF = false
-          if (isHidden && !f.isHidden)
-            ishiddenF = false
-          iskeywordF && ishiddenF
-        })
+      val filterList = dir.listFiles().filter(f => {
+        var iskeywordF = true
+        var ishiddenF = true
+
+        if (!StringUtils.isNullOrBlank(keyword) && !f.getName.contains(keyword))
+          iskeywordF = false
+
+        if (isHidden && f.isHidden)
+          ishiddenF = false
+        iskeywordF && ishiddenF
+      })
+
       // f.getPath 是绝对路径
       var items = filterList.zipWithIndex
         .map {
@@ -43,7 +47,7 @@ class FileService {
               f.getName,
               getFileType(f),
               f.length(),
-              "",
+              formatSizeUnits(f.length()),
               f.getAbsolutePath,
               f.isHidden,
               f.lastModified(),
@@ -190,5 +194,16 @@ class FileService {
     directory.delete()
   }
 
+  def formatSizeUnits(bytes: Long): String = {
+    val units = Seq("B", "KB", "MB", "GB", "TB")
+    var size = bytes.toDouble
+    var i = 0
+    while (size >= 1024 && i < units.length - 1) {
+      size /= 1024
+      i += 1
+    }
+    val sizeFor = "%.1f".format(size)
+    s"${"%.1f".format(size)} ${units(i)}"
+  }
 
 }

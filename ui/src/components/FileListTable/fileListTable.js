@@ -40,6 +40,14 @@ class FileListTable extends React.Component {
     };
   }
 
+  goCurrentPath = (record) => {
+    let tmpPath = this.state.currentPath
+    this.setState({
+      currentPath: tmpPath + record.name
+    }, this.updateFileList)
+    this.props.updateCurrentPath(tmpPath + record.name)
+  }
+
   columns = [
     {
       title: 'Name',
@@ -48,33 +56,40 @@ class FileListTable extends React.Component {
       render: (text, record) => {
         if (record.fType === 'folder') { //是跳转
           return <span>
-        <FolderOpenOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+        <FolderOpenOutlined className='tableFirstC'/><a
+            onClick={() => this.goCurrentPath(record)}>{record.name}</a></span>;
         } else { // 文件是下载
           switch (record.fType) {
             case 'image':
-              return <span><FileImageOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileImageOutlined className='tableFirstC'/><a className='tableFirstCLink'>{record.name}</a></span>;
             case 'pdf':
-              return <span><FilePdfOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FilePdfOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
             case 'word':
-              return <span><FileWordOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileWordOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
             case 'excel':
-              return <span><FileExcelOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileExcelOutlined className='tableFirstC'/><a className='tableFirstCLink'>{record.name}</a></span>;
             case 'ppt':
-              return <span><FilePptOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FilePptOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
             case 'md':
-              return <span><FileMarkdownOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileMarkdownOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
             case 'yasuobao':
-              return <span><FileZipOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileZipOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
             case 'txt':
-              return <span><FileTextOutlined style={{marginRight: '10px'}}/><a>{record.name}</a></span>;
+              return <span><FileTextOutlined className='tableFirstC'/><a
+                className='tableFirstCLink'>{record.name}</a></span>;
           }
         }
       }
     },
     {
       title: 'Size',
-      dataIndex: 'fSize',
-      key: 'fSize',
+      dataIndex: 'fSizeDesc',
+      key: 'fSizeDesc',
       width: 120,
     },
     {
@@ -152,7 +167,8 @@ class FileListTable extends React.Component {
 
   componentDidMount() {
     // 搜索
-    PubSub.subscribe('search', (_, data) => {
+    PubSub.subscribe('navSearch', (_, data) => {
+      debugger
       this.setState({keyword: data}, this.updateFileList)
     })
 
@@ -173,7 +189,7 @@ class FileListTable extends React.Component {
 
     // 上传文件
     PubSub.subscribe('refresh', (_, data) => {
-      this.createNewFolder()
+      this.updateFileList()
     })
 
     PubSub.subscribe('downloadLoading', (_, data) => {
@@ -235,7 +251,7 @@ class FileListTable extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    keyword: state.navReducer.keyword,
+    // keyword: state.navReducer.keyword,
     currentPath: state.fileListTableReducer.currentPath
   };
 };

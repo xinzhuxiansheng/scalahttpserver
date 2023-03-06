@@ -21,7 +21,7 @@ function Breadc() {
     // 删除第一个元素
     arr.splice(-1, 1);
     // 处理边界，如果数组为空或只有一个元素，则返回空数组
-    setBreads(arr);
+    setBreads(memoizedData.split('/').splice(-1, 1));
   }, [memoizedData]);
 
   return (
@@ -42,6 +42,7 @@ function Breadc() {
 
             {breads.map(item => (
               <Breadcrumb.Item>{item}</Breadcrumb.Item>
+
             ))}
 
           </Breadcrumb>

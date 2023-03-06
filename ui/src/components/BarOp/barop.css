@@ -20,6 +20,12 @@
   border-color: #343434;
 }
 
+.isHiddenButtonStyle {
+  color: #343434 !important;
+  background-color: #e6e6e6 !important;
+  border-color: #343434;
+}
+
 .newFolderWrapper{
   font-size: 13px;
 }

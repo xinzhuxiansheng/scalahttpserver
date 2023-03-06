@@ -22,6 +22,8 @@ function Barop() {
 
   const [uploadData, setUploadData] = useState({});
 
+  const [buttonStyle, setButtonStyle] = useState('');
+
   const currentPath = useSelector(state => state.fileListTableReducer.currentPath);
 
   // New Folder
@@ -52,6 +54,11 @@ function Barop() {
 
   const handlerIsHidden = () => {
     let isHiddenTmp = isHidden
+    if (!isHidden === true) {
+      setButtonStyle('isHiddenButtonStyle')
+    } else {
+      setButtonStyle('')
+    }
     setIsHidden(!isHiddenTmp, PubSub.publish('isHidden', !isHiddenTmp))
   }
 
@@ -99,7 +106,7 @@ function Barop() {
         <Col span={16} className='baropMiddleWrapper'>
 
           <Button icon={<ArrowLeftOutlined/>}>Back</Button>
-          <Button icon={<EyeInvisibleOutlined/>} onClick={handlerIsHidden}>Hidden</Button>
+          <Button className={buttonStyle} icon={<EyeInvisibleOutlined/>} onClick={handlerIsHidden}>Hidden</Button>
           <Button icon={<CloudUploadOutlined/>} onClick={showUploadModal}>Upload</Button>
           <Button icon={<FolderAddOutlined/>} onClick={showNewFolderModal}>New Folder</Button>
 

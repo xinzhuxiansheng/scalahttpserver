@@ -10,7 +10,7 @@ const {Search} = Input;
 
 const Nav = (props) => {
   const onSearch = (value) => {
-    PubSub.publish('search',value)
+    PubSub.publish('navSearch',value)
 
     // // console.log(currentPath)
     // // 同步keyword
