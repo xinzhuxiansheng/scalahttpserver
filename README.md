@@ -2,6 +2,8 @@
 ## 介绍
 ScalaHttpServer Scala文件服务器，是由React 、Play框架开发
 
+![首页](./首页.png)
+
 ## 调试
 IDEA中调试 Play服务接口，请勿使用`use sbt shell`
 
