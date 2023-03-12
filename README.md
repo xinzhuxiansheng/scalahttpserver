@@ -1,8 +1,13 @@
 
 ## 介绍
-ScalaHttpServer Scala文件服务器，是由React 、Play框架开发
+ScalaHttpServer Scala文件服务器
 
 ![首页](./首页.png)
+
+
+**Projects**
+* react web基于react开发，学习视频(https://www.youtube.com/watch?v=Uz_EhDwUnRg&list=PLmOn9nNkQxJFJXLvkNsGsoCUxJLqyLGxu)
+* playframework 参考`play-scala-react-seed`（https://github.com/playframework/play-scala-react-seed），它提供了react和play两者一体化的开发和部署方式。
 
 ## 调试
 IDEA中调试 Play服务接口，请勿使用`use sbt shell`
