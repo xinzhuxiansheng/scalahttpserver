@@ -7,6 +7,7 @@ ScalaHttpServer Scala文件服务器
 
 **Projects**
 * react web基于react开发，学习视频(https://www.youtube.com/watch?v=Uz_EhDwUnRg&list=PLmOn9nNkQxJFJXLvkNsGsoCUxJLqyLGxu)
+* ant design 提供了丰富的UI组件，简化了页面开发的时间和成本
 * playframework 参考`play-scala-react-seed`（https://github.com/playframework/play-scala-react-seed），它提供了react和play两者一体化的开发和部署方式。
 
 ## 调试
